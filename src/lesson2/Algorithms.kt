@@ -2,6 +2,8 @@
 
 package lesson2
 
+import java.lang.Math.sqrt
+
 /**
  * Получение наибольшей прибыли (она же -- поиск максимального подмассива)
  * Простая
@@ -97,6 +99,7 @@ fun josephTask(menNumber: Int, choiceInterval: Int): Int {
 fun longestCommonSubstring(first: String, second: String): String {
     TODO()
 }
+
 
 /**
  * Число простых чисел в интервале

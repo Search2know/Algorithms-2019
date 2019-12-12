@@ -2,7 +2,9 @@ package lesson6;
 
 import kotlin.NotImplementedError;
 
-import java.util.List;
+import java.util.*;
+
+import static java.lang.Math.max;
 
 @SuppressWarnings("unused")
 public class JavaDynamicTasks {
@@ -18,26 +20,61 @@ public class JavaDynamicTasks {
      * Если есть несколько самых длинных общих подпоследовательностей, вернуть любую из них.
      * При сравнении подстрок, регистр символов *имеет* значение.
      */
+
+    // Затрата времени O(n*m)             n и m - являются длинами двух послеовательностей
+    // Затрата памяти  O(n+m)
     public static String longestCommonSubSequence(String first, String second) {
-        throw new NotImplementedError();
+        int n = first.toLowerCase().length()
+                , m = second.toLowerCase().length();
+        int[][] num = new int[n+1][m+1];
+
+        for (int i = 1; i <= first.length(); i++) {
+            for (int j = 1; j <= second.length(); j++){
+                if (first.charAt(i - 1) == (second.charAt(j - 1)))
+                    num[i][j] = 1 + num[i - 1][j - 1];
+                else
+                    num[i][j] = max(num[i - 1][j], num[i][j - 1]);
+            }
+        }
+
+        StringBuilder res = new StringBuilder();
+
+        while (n != 0 && m != 0) {
+            if (first.charAt(n - 1)==(second.charAt(m - 1)))
+            {
+                res.append(first.charAt(n-1));
+                n--;
+                m--;
+            }
+            else if (num[n][m - 1] >= num[n][m])
+            {
+                m--;
+            }
+            else
+            {
+                n--;
+            }
+        }
+        res.reverse();
+        return String.valueOf(res);
     }
 
-    /**
-     * Наибольшая возрастающая подпоследовательность
-     * Сложная
-     *
-     * Дан список целых чисел, например, [2 8 5 9 12 6].
-     * Найти в нём самую длинную возрастающую подпоследовательность.
-     * Элементы подпоследовательности не обязаны идти подряд,
-     * но должны быть расположены в исходном списке в том же порядке.
-     * Если самых длинных возрастающих подпоследовательностей несколько (как в примере),
-     * то вернуть ту, в которой числа расположены раньше (приоритет имеют первые числа).
-     * В примере ответами являются 2, 8, 9, 12 или 2, 5, 9, 12 -- выбираем первую из них.
-     */
+
+        /**
+         * Наибольшая возрастающая подпоследовательность
+         * Сложная
+         *
+         * Дан список целых чисел, например, [2 8 5 9 12 6].
+         * Найти в нём самую длинную возрастающую подпоследовательность.
+         * Элементы подпоследовательности не обязаны идти подряд,
+         * но должны быть расположены в исходном списке в том же порядке.
+         * Если самых длинных возрастающих подпоследовательностей несколько (как в примере),
+         * то вернуть ту, в которой числа расположены раньше (приоритет имеют первые числа).
+         * В примере ответами являются 2, 8, 9, 12 или 2, 5, 9, 12 -- выбираем первую из них.
+         */
     public static List<Integer> longestIncreasingSubSequence(List<Integer> list) {
-        throw new NotImplementedError();
+throw new NotImplementedError();
     }
-
     /**
      * Самый короткий маршрут на прямоугольном поле.
      * Средняя
